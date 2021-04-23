@@ -31,6 +31,7 @@ class RegisterType extends AbstractType
             ->add('email',EmailType::class, [
                 'label' => 'Votre email'
             ])
+            // RepeatedType permet de dire que c'est une donnée qui doit être répété dans le formulaire, symfony gère automatiquement le fait que les deux labels doivent être identique quand l'utilisateur saisi quelque chose
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Le mot de passe et la confirmation doivent être idetique',
