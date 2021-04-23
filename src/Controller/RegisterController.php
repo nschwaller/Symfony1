@@ -27,6 +27,8 @@ class RegisterController extends AbstractController
      */
     public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
+        //UserpasswordEncoderInterface va nous permettre de crypter notre mdp
+
         // il faut instancier la classe user car le formulaire va enregistrer les données dans user
         //et va surtout prendre un formulaire qui se base sur user
         $user = new User();
@@ -42,6 +44,7 @@ class RegisterController extends AbstractController
 
             //dans user tu dois mettre les informations du formulaire que l'utilisateur a rentré
             $user = $form->getData();
+            //On va encoder le getpassword donc le mot de passe que l'utilisateur aura saisie ensuite on va remplacer le mot de passe de l'utilisateur par son mot de passe encodé
             $password = $encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($password);
 

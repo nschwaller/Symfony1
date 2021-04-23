@@ -1,7 +1,7 @@
 security:
     encoders:
         App\Entity\User:
-            algorithm: auto
+            algorithm: auto #symfony doit utiliser automatiquement la meilleur méthode de cryptage
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
