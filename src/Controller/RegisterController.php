@@ -25,7 +25,10 @@ class RegisterController extends AbstractController
      */
     public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
+        // il faut instancier la classe user car le formulaire va enregistrer les données dans user
+        //et va surtout prendre un formulaire qui se base sur user
         $user = new User();
+        //instancier le formulaire
         $form = $this->createForm(RegisterType::class, $user);
 
         $form-> handleRequest($request);
@@ -41,6 +44,7 @@ class RegisterController extends AbstractController
         }
 
         return $this->render('register/index.html.twig', [
+            //on envoie notre formulaire au template pour pouvoir l'utiliser avec twig
             'form'=>$form->createView()
         ]);
     }
