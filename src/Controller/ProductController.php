@@ -32,8 +32,10 @@ class ProductController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $search = $form->getData();
             $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
-        }else
+        }
+        else
         {
+            //Permet de récupéré tout les produits de la base de données
             $products = $this->entityManager->getRepository(Product::class)->findAll();
         }
 
