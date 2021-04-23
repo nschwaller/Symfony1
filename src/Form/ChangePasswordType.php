@@ -18,6 +18,7 @@ class ChangePasswordType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
+                //Permet à l'utilisateur de voir ses informations sans pouvoir les supprimer
                 'disabled' => true,
                 'label' => "Mon nom"              
             ])
@@ -39,7 +40,7 @@ class ChangePasswordType extends AbstractType
             ->add('new_password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
-                'invalid_message' => 'Le mot de passe et la confirmation doivent être idetique',
+                'invalid_message' => 'Le mot de passe et la confirmation doivent être identique',
                 'required' => true,
                 'first_options'=> ['label' => 'Mon nouveau mot de passe'],
                 'second_options'=> ['label' => 'Confirmez mon nouveau mot de passe']
