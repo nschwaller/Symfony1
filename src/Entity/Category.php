@@ -34,6 +34,7 @@ class Category
         $this->products = new ArrayCollection();
     }
 
+    //La fonction toString est nécessaire pour lié une category via easyadmin, on va avoir le nom des catégorie affiché, on pourrais affiche l'id etc...
     public function __toString(){
         return $this->getName();
     }
