@@ -14,6 +14,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        //si un utilisateur est connecté alors on le redirige automatiquement vers une autre route
         if ($this->getUser()) {
             return $this->redirectToRoute('account');
         }

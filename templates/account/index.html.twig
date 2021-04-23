@@ -5,6 +5,8 @@
 {% block content %}
 <h1> Mon compte </h1>
 
+
+<!-- app.user correspond à notre classe user, si un utilisateur est connecté comme on a fais la classe user avec make:user, toute ses informations seront accessible depuis app.user. app.user.prenom correspond donc à la colonne prenom de notre entité -->
 Bienvenue {{ app.user.prenom }} dans votre compte, </br> c'est dans cet espace que vous aller pouvoir gérer toutes vos informations personnelles.
 <hr>
 - <a href="{{ path('account_password') }}"> Modifier mon mot de passe </a> </br>

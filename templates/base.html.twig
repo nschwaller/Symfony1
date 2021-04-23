@@ -54,6 +54,7 @@
                 </li>
             </ul>
             <div class="theNavbar">
+                <!-- Si l'utilisateur est connecté, que app.user n'est pas vide -->
                 {% if app.user %}
                     <a href="{{ path('account') }}"> Mon Compte</a> |  <a href=" {{ path('app_logout') }}"> Déconnexion </a>
                 {% else %}
