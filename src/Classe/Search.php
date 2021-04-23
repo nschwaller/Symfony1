@@ -4,6 +4,7 @@ namespace App\Classe;
 
 use App\Entity\Category;
 
+// Classe crée à la main
 class Search
 {
     /**
@@ -11,6 +12,7 @@ class Search
      */
     public $string = "";
 
+    //Objet de type tableau de category
     /**
      * @var Category[]
      */
