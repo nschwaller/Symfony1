@@ -14,8 +14,9 @@
             <div class="row product-container" width="10" >
                 <!--On récupère tout les produits passé en paramètre et on appel chaque produit produit. Il suffit alors d'appeler product.laColonne pour afficher les informations de la base de données -->
                 {% for product in products %}
-                    <div class="col-md-4"> 
-                        <div class="product-item"> 
+                    <div class="col-md-4">
+                        <div class="product-item">
+                            <!-- pour mettre un paramètre dans notre lien il suffit de faire : ,{'nomparamètre':notreparemètre} -->
                             <a href="{{ path('products', {'slug':product.slug }) }}"><img src="/projetCommerce/public/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid"  ></a>
                             <h5>{{ product.name }}</h5>
                             <span calss='product-subtitle'>{{ product.subtitle }}</span>
@@ -27,5 +28,5 @@
             </div>
         </div>
     </div>
-    
+
 {% endblock %}
