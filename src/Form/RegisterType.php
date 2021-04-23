@@ -20,6 +20,10 @@ class RegisterType extends AbstractType
         $builder
             ->add('prenom', TextType::class, [
                 'label' => 'Votre prénom'
+                /*'attr' => [
+                    'placeholder' => "merci d'écrire votre prénom" //ne pas oublier la virgule après label
+                ]
+                */
             ])
             ->add ('nom', TextType::class, [
                 'label' => 'Votre nom'
@@ -36,7 +40,7 @@ class RegisterType extends AbstractType
             ])
             /*->add('password_confirm', PasswordType::class, [
                 'label' => 'Confirmation de votre mot de passe',
-                'mapped' => false
+                'mapped' => false //la propriété que tu lis dans le formulaire n'est pas lié dans l'entité
             ])*/
             ->add('submit', SubmitType::class, [
                 'label' => "S'inscrire"
