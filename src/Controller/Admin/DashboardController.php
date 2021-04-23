@@ -32,6 +32,7 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('ProjetCommerce');
     }
 
+    //affichage dans la page admin
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
