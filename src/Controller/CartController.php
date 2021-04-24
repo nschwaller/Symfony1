@@ -20,6 +20,7 @@ class CartController extends AbstractController
     }
 
 
+
     #[Route('/mon-panier', name: 'cart')]
     public function index(Cart $cart): Response
     {
@@ -29,6 +30,7 @@ class CartController extends AbstractController
         ]);
     }
 
+
     //Fonction d'ajout d'un produit dans le panier
     #[Route('/cart/add/{id}', name: 'add_to_cart')]
     //Instantiation d'un objet panier
@@ -37,9 +39,10 @@ class CartController extends AbstractController
         //appel de la fonction add dans la clasee cart
         $cart->add($id);
 
-        //QUand un produit est ajouté au panier, on redirige le client vers son panie
+        //Quand un produit est ajouté au panier, on redirige le client vers son panie
         return $this->redirectToRoute('cart');
     }
+
 
     //Suppression du panier
     #[Route('/cart/remove', name: 'remove_my_cart')]
@@ -50,6 +53,8 @@ class CartController extends AbstractController
         return $this->redirectToRoute('product');
     }
 
+
+    //Suppresion d'un seul produit du panier
     #[Route('/cart/delete/{id}', name: 'delete_to_cart')]
     public function delete(Cart $cart, $id): Response
     {
@@ -58,6 +63,8 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart');
     }
 
+
+    //Permet de retirer une quantité
     #[Route('/cart/decrease/{id}', name: 'decrease_to_cart')]
     public function decrease(Cart $cart, $id): Response
     {

@@ -46,10 +46,19 @@
                     </a>
                 </td>
 
-                <td>{{ (product.product.price / 100)|number_format(2)}}€</td>
-                <td>{{ ((product.product.price * product.quantity) /100)|number_format(2) }}€</td>
+                <td>
+                    {{ (product.product.price / 100)|number_format(2)}}€
+                </td>
 
-                <td><a href="{{ path('delete_to_cart', { 'id' : product.product.id }) }}"><img src="{{ asset('assets/img/delete.png')}}" height="20px" alt="Supprimer mon produit"></a> </td>
+                <td>
+                    {{ ((product.product.price * product.quantity) /100)|number_format(2) }}€
+                </td>
+
+                <td>
+                    <a href="{{ path('delete_to_cart', { 'id' : product.product.id }) }}">
+                        <img src="{{ asset('assets/img/delete.png')}}" height="20px" alt="Supprimer mon produit">
+                    </a>
+                </td>
 
             </tr>
                 <!-- On incremente la variable total en fonction des objets de notre tableau -->

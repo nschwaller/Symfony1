@@ -52,6 +52,7 @@ class Cart
     {
         $cart = $this->session->get('cart', []);
 
+        //permet de retirer du tableau cart un objet, ici on retire un id donc un produit
         unset($cart[$id]);
 
         return  $this->session->set('cart', $cart);
@@ -61,6 +62,7 @@ class Cart
     {
         $cart = $this->session->get('cart', []);
 
+        //On test si la quantité d'id d'un produit est supérieur a un, si oui on enleve une quantité, sinon on supprime le produit du panier
         if($cart[$id]>1)
         {
             $cart[$id]--;
@@ -83,10 +85,13 @@ class Cart
             //On parcours la totalité du panier (get l'instance actuel donc panier) on donne des clé, id vers quantité
             foreach ($this->get() as $id => $quantity){
 
-                //On récupère les informarmation du produit grâce à l'id dans le panier
+                //On récupère les informarmations du produit grâce à l'id dans le panier
                 $product_object = $this->entityManager->getRepository(Product::class )->findOneById($id);
+
+                //on test si l'objet existe ou non (par exemple si l'utilisateur rentre un id au hasard, donc on supprime cette fausse id
                 if(!$product_object){
                     $this->delete($id);
+                    //correspond à un exit (on sort de la boucle et on retourne en haut du foreach
                     continue;
                 }
 
