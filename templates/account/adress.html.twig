@@ -9,6 +9,7 @@
     <a href="{{ path('account') }}"> Retourner à mon compte</a>
     <hr>
 
+    <!-- test si l'utilisateur a mis donner des adresses user.app.adresses correspond au getAdresses, on peut utiliser app.user sans avoir besoin de le mettre dans un paramètre (c'est comme une session -->
     {% if app.user.adresses|length == 0 %}
        <p class="text-center">
            Vous n'avez pas encore d'ajouter d'adresses sur votre compte client. Veuillez en ajouter une.

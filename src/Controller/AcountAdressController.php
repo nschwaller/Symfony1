@@ -26,6 +26,8 @@ class AcountAdressController extends AbstractController
         return $this->render('account/adress.html.twig');
     }
 
+
+    //Ajout adresse
     #[Route('/compte/ajouter-une-adresse', name: 'account_address_add')]
     public function add(Cart $cart,Request $request): Response
     {
@@ -35,9 +37,13 @@ class AcountAdressController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            //permet d'ajouter l'id de l'utilisateur dans l'adresse
             $addresse->setUser($this->getUser());
+
             $this->entityManager->persist($addresse);
             $this->entityManager->flush();
+
             if($cart->get())
             {
                 return $this->redirectToRoute('order');
@@ -51,11 +57,15 @@ class AcountAdressController extends AbstractController
         ]);
     }
 
+
+    //Modifier une adresse
     #[Route('/compte/modifier-une-adresse/{id}', name: 'account_address_edit')]
     public function edit(Request $request, $id): Response
     {
+        //On récupère l'adresse en fonction de l'id
         $addresse = $this->entityManager->getRepository(Adresse::class)->findOneById($id);
 
+        //On test si l'adresse existe, on vérifie ensuite si l'id de l'adresse dans adresse est différent de l'id de la personne connecté
         if(!$addresse || $addresse->getUser() != $this->getUser())
         {
             return $this->redirectToRoute('account_address');
@@ -76,13 +86,16 @@ class AcountAdressController extends AbstractController
         ]);
     }
 
+
+    //Suppression d'une adresse
     #[Route('/compte/supprimer-une-adresse/{id}', name: 'account_address_delete')]
     public function delete($id): Response
     {
         $addresse = $this->entityManager->getRepository(Adresse::class)->findOneById($id);
 
-        if($addresse || $addresse->getUser() == $this->getUser())
+        if($addresse && $addresse->getUser() == $this->getUser())
         {
+            //permet de supprimer une ligne de la bdd
            $this->entityManager->remove($addresse);
            $this->entityManager->flush();
         }

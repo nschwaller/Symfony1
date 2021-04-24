@@ -38,6 +38,7 @@ class AddressType extends AbstractType
             ->add('city', TextType::class,[
                 'label'=> 'Votre ville'
             ])
+            //Country Type permet d'afficher tout les pays pour que le client séléctionne un payse
             ->add('country', CountryType::class,[
                 'label'=> 'Votre pays'
             ])

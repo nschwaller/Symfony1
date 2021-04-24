@@ -8,10 +8,16 @@
     C'est dans cet espace que vous allez pouvoir gérer toutes vos adresses.<br>
     <a href="{{ path('account_address') }}"> Retour</a>
     <hr>
+
+    <!-- Permet de modifier le formulaire comme on le souhaite input par input (comme changer la place de l'input ou le css -->
     {{ form_start(form) }}
+
     <div class="row">
+        <!-- col md 12 permet de dire que l'input prends tout la page car la page est séparé en 12 -->
         <div class="col-md-12">{{ form_row(form.name) }}</div>
+        <!-- deux col md 6 permettent de mettre deux input côte à côte -->
         <div class="col-md-6">{{ form_row(form.firstname) }}</div>
+        <!-- form_row{form.nomInput} permet d'appeler l'input que l'on souhaite -->
         <div class="col-md-6">{{ form_row(form.lastname) }}</div>
         <div class="col-md-12">{{ form_row(form.company) }}</div>
         <div class="col-md-12">{{ form_row(form.address) }}</div>
@@ -22,5 +28,6 @@
 
     </div>
 
+    <!-- Permet de fermer la modification du formulaire -->
     {{ form_end(form) }}
 {% endblock %}
