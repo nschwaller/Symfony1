@@ -72,17 +72,25 @@ class Cart
         return  $this->session->set('cart', $cart);
     }
 
+
     public function getFull()
     {
         $cartComplete =[];
 
+        //si il y a des information dans mon panier
         if($this->get()){
+
+            //On parcours la totalité du panier (get l'instance actuel donc panier) on donne des clé, id vers quantité
             foreach ($this->get() as $id => $quantity){
+
+                //On récupère les informarmation du produit grâce à l'id dans le panier
                 $product_object = $this->entityManager->getRepository(Product::class )->findOneById($id);
                 if(!$product_object){
                     $this->delete($id);
                     continue;
                 }
+
+                //on stock nos informations dans $carCOmplete qui contiendra toutes les informations d'un produit et sa quantité
                 $cartComplete[] = [
                     'product' => $product_object,
                     'quantity' => $quantity

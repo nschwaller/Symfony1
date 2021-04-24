@@ -7,6 +7,8 @@
     Retrouvez l'ensemble des produits que vous avez ajouté à votre panier.
     <br>
     <br>
+    <!-- On affiche les informations ci dessous seulement si le panier n'est pas vide -->
+    <!-- Cart|length  permet de compter le nombre de case dans un tableau -->
     {% if cart|length > 0 %}
         <table class="table mt-3 table-hover">
             <thead>
@@ -23,14 +25,17 @@
             {% set quantite = 0 %}
             {% for product in cart %}
             <tr>
+
                 <td>
                     <img src="/uploads/{{ product.product.illustration }}" height="80px">&nbsp;
-
                 </td>
+
                 <td>
+                    <!-- Notre variable du foreach s'appelle product et elle contient un product qui est un objet produit -->
                     {{ product.product.name }}<br>
                     <small>{{ product.product.subtitle }}</small>
                 </td>
+
                 <td>
                     <a href="{{ path('decrease_to_cart', { 'id' : product.product.id }) }}">
                         <img src="{{ asset('assets/img/minus.png')}}" height="12px" alt="Enlever une quantite a mon produit">
@@ -40,10 +45,14 @@
                         <img src="{{ asset('assets/img/plus.png')}}" height="12px" alt="Ajouter une quantite a mon produit">
                     </a>
                 </td>
+
                 <td>{{ (product.product.price / 100)|number_format(2)}}€</td>
                 <td>{{ ((product.product.price * product.quantity) /100)|number_format(2) }}€</td>
+
                 <td><a href="{{ path('delete_to_cart', { 'id' : product.product.id }) }}"><img src="{{ asset('assets/img/delete.png')}}" height="20px" alt="Supprimer mon produit"></a> </td>
+
             </tr>
+                <!-- On incremente la variable total en fonction des objets de notre tableau -->
                 {% set total = total + (product.product.price * product.quantity) %}
                 {% set quantite = quantite + product.quantity %}
             {% endfor %}
