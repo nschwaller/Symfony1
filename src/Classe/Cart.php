@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Cart
 {
+
+    //Classe crée à la main
     private $session;
     private $entityManager;
 
@@ -21,6 +23,8 @@ class Cart
     {
         $cart = $this->session->get('cart', []);
 
+        //On test si on a déjà ajouté le produit alors on mais cart a plus 1 sinon on lui donn la valeur 1
+        //l'affichage sera id ==> valeur (1/2/3/etc..)
         if(!empty($cart[$id]))
         {
             $cart[$id]++;
@@ -32,11 +36,13 @@ class Cart
         $this->session->set('cart', $cart);
     }
 
+    //retourne tout ce qui se trouve dans la session cart
     public function get()
     {
         return $this->session->get('cart');
     }
 
+    //Suppresion de la session cart
     public  function remove()
     {
         return $this->session->remove('cart');
