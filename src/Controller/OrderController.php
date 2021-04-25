@@ -22,14 +22,18 @@ class OrderController extends AbstractController
         $this->entityManager=$entityManager;
     }
 
+    //Choix de l'adresse et du livreur
     #[Route('/commande', name: 'order')]
     public function index(Cart $cart, Request $request): Response
     {
+        //on test si l'utilisateur a déjà des adresses, s'il n'en a pas on le redirige vers le formulaire d'ajout d'adresse
+        //getValues permet de savoir si il y a des valeur
         if(!$this->getUser()->getAdresses()->getValues())
         {
             return $this->redirectToRoute('account_address_add');
         }
 
+        //Permet de passer un utilisateur en option
         $form = $this->createForm(OrderType::class, null, [
             'user' => $this->getUser()
         ]);

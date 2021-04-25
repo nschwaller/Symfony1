@@ -14,12 +14,14 @@ class OrderType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //option récupèrer en desssous et envoyer depuis OrderController
         $user = $options['user'];
         $builder
             ->add('adresses', EntityType::class, [
                 'label' => false,
                 'required' => true,
                 'class' => Adresse::class,
+                //permet d'avoir les adresses du client connecté
                 'choices' => $user->getAdresses(),
                 'multiple' => false,
                 'expanded' => true
@@ -42,6 +44,7 @@ class OrderType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        //On récupère l'option ici pour l'appeller au dessus
         $resolver->setDefaults([
            'user' => array()
         ]);

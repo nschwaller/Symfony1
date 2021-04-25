@@ -70,6 +70,7 @@ class Adresse
 
     public function __toString(){
 
+        //Les [br] permettent d'être transformer sur la vue grâce a un set formHtml
         return $this->getName().'[br]'.$this->getAddress().'[br]'.$this->getCity().'-'.$this->country;
     }
 

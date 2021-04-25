@@ -44,6 +44,7 @@ class AcountAdressController extends AbstractController
             $this->entityManager->persist($addresse);
             $this->entityManager->flush();
 
+            //on test si l'utilisateur a des produits dans son panier alors on redirige vers la page commande ou l'utilisateur choisis adresse et mode de livraison
             if($cart->get())
             {
                 return $this->redirectToRoute('order');

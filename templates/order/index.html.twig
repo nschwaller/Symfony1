@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+.{% extends 'base.html.twig' %}
 
 {% block title %}Valider ma commande{% endblock %}
 
@@ -9,12 +9,14 @@
     <hr>
     <div class="row mb-3">
         <div class="col-md-6">
+            <!-- Permet de lire le html (par exemple dans l'entity order on a marque [br] grâce a set formhtml les br seront des retour à la ligne-->
             {% set formHtml %}
                 {{ form_start(form,{action:path('order_recap')}) }}
                     {{ form_label(form.adresses, 'Choisissez votre adresse de livraison') }}
                 <a href="{{ path('account_address_add') }}"> Ajouter une nouvelle adresse</a>
                 {{ form_end(form) }}
             {% endset %}
+            <!-- fonction qui permet de dire qu'il faut remplacer -->
             {{ formHtml|replace({'[br]':'<br/>'})|raw }}
         </div>
         <div class="col-md-6">
