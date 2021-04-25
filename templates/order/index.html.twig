@@ -11,6 +11,7 @@
         <div class="col-md-6">
             <!-- Permet de lire le html (par exemple dans l'entity order on a marque [br] grâce a set formhtml les br seront des retour à la ligne-->
             {% set formHtml %}
+                <!-- Permet de spécifier une action -->
                 {{ form_start(form,{action:path('order_recap')}) }}
                     {{ form_label(form.adresses, 'Choisissez votre adresse de livraison') }}
                 <a href="{{ path('account_address_add') }}"> Ajouter une nouvelle adresse</a>
@@ -26,6 +27,7 @@
 
             <div class="order-summary">
                 {% for key,product in cart %}
+                    <!-- quand on est sur le prochain produit(pas le premier) on met une margin top pour espace le recap des produit -->
                     <div class="row {% if key > 0 %} mt-2 {% endif %}" >
                         <div class="col-3">  <img src="/uploads/{{ product.product.illustration }}" height="80px"></div>
                         <div class="col-4 my-auto">

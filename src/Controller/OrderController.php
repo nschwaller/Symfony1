@@ -44,7 +44,8 @@ class OrderController extends AbstractController
         ]);
     }
 
-        #[Route('/commande/recapitulatif', name: 'order_recap')]
+    //Recapitulatif de la commande
+    #[Route('/commande/recapitulatif', name: 'order_recap')]
     public function add(Cart $cart, Request $request): Response
     {
         $form = $this->createForm(OrderType::class, null, [
@@ -54,35 +55,46 @@ class OrderController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            //Récupère la date d'aujourd'hui
             $date = new \DateTime();
+
+
+            //récupère sur quel bouton radio l'utilisateur a cliqué
             $carriers = $form->get('carriers')->getData();
-            $delivery = $form->get('adresses')->getData();
-            $delivery_content = $delivery->getFirstname().' '.$delivery->getLastname();
-            $delivery_content .= '<br/>'.$delivery->getPhone();
+            $adresse = $form->get('adresses')->getData();
 
-            if($delivery->getCompany())
+
+            //Récupération de toutes les informations sur l'adresse choisis par l'utilisateur (on les met dans une seule variable car on écrit tout en dur dans la base de données au niveau de la commande
+            $delivery_content = $adresse->getFirstname().' '.$adresse->getLastname();
+            $delivery_content .= '<br/>'.$adresse->getPhone();
+            if($adresse->getCompany())
             {
-                $delivery_content .= '<br/>'.$delivery->getCompany();
+                $delivery_content .= '<br/>'.$adresse->getCompany();
             }
-
-            $delivery_content .= '<br/>'.$delivery->getAddress();
-            $delivery_content .= '<br/>'.$delivery->getPostal().' '.$delivery->getCity();
-            $delivery_content .= '<br/>'.$delivery->getCountry();
+            $delivery_content .= '<br/>'.$adresse->getAddress();
+            $delivery_content .= '<br/>'.$adresse->getPostal().' '.$adresse->getCity();
+            $delivery_content .= '<br/>'.$adresse->getCountry();
 
 
             $order = new Order();
+            //permet de récupèrer une date au format 21/02/2021
             $reference = $date->format('dmY').'-'.uniqid();
             $order->setReference($reference);
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);
+            //Configuration du transpoirteur marqué en dr (non lié par une relation)
             $order->setCarrierName($carriers->getName());
             $order->setCarrierPrice($carriers->getPrice());
             $order->setDelivery($delivery_content);
+            //La commande n'est pas payé
             $order->setIsPaid(0);
 
+            //On persist déjà order car orderdetails a besoin d'order
             $this->entityManager->persist($order);
 
 
+            //enregistrer les produits du panier dans la commande
             foreach ($cart->getFull() as $product){
 
                 $orderDetails = new OrderDetails();
@@ -97,6 +109,7 @@ class OrderController extends AbstractController
             $this->entityManager->flush();
             //dd ($cart->getFull());
 
+            //L'affichage de la vue se fait uniquement quand le formulaire du choix est valider, pour eviter que qq'un marque tout de suite l'url
             return $this->render('order/recap.html.twig',[
                 'cart' => $cart->getFull(),
                 'carrier' => $carriers,
