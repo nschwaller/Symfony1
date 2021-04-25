@@ -20,8 +20,10 @@ class OrderCrudController extends AbstractCrudController
         return Order::class;
     }
 
+    //permet d'afficher une nouvelle action (supprimer/editer etc...)
     public function configureActions(Actions $actions): Actions
     {
+        //Action qui permet de voir
         return $actions
             ->add('index','detail');
     }
@@ -29,10 +31,14 @@ class OrderCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            //Affichage d'un id
             IdField::new('id'),
+            //Affichage d'une date avec modification du label
             DateTimeField::new('createdAt', 'Passée le')->setFormat('dd-MM-yyyy hh:mm:ss'),
+            //Affichage d'un texte
             TextField::new('user.getFullName', 'Utilisateur'),
             MoneyField::new('total')->setCurrency('EUR'),
+            //Affichage d'un bouton
             BooleanField::new('isPaid', 'Payée')
         ];
     }
